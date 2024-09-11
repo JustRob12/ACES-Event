@@ -14,6 +14,7 @@ switch ($requestMethod) {
         } else {
             fetchEvents();
         }
+        break;
     }
     case "POST": {
         //perform post requests
@@ -28,7 +29,7 @@ function fetchEvents()
     $events = read();
     //if no events found return false
     if (!$events) {
-        response(false);
+        response(false, ["message" => "No events found"]);
         exit;
     }
     //return all events
@@ -38,7 +39,7 @@ function fetchEvents()
 function fetchEventsById($id){
     $event = findEventById($id);
     if (!$event) {
-        response(false);
+        response(false,["message" => "Event not found"]);
         exit;
     }
 
