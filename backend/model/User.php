@@ -67,26 +67,24 @@ function findUserByEmail($email)
     $result = $stmt->fetch();
     return $result;
 }
-// function insertEvent(array $events)
-// {
-//     global $userTable;
-//     global $database;
+function insertUser(array $user)
+{
+    global $userTable;
+    global $database;
 
-//     $query = "INSERT INTO $userTable (id, name, description, startDate, endDate, checkIn, checkOut, banner) 
-//               VALUES (:id, :name, :description, :startDate, :endDate, :checkIn, :checkOut, :banner)";
+    $query = "INSERT INTO $userTable (id, firstname, lastname, middlename, email, password) 
+              VALUES (:id, :firstname, :lastname, :middlename, :email, :password)";
 
-//     $stmt = $database->connect()->prepare($query);
+    $stmt = $database->connect()->prepare($query);
 
-//     // Bind values
-//     $stmt->bindValue(":id", $events["id"]);
-//     $stmt->bindValue(":name", $events["name"]);
-//     $stmt->bindValue(":description", $events["description"]);
-//     $stmt->bindValue(":startDate", $events["startDate"]);
-//     $stmt->bindValue(":endDate", $events["endDate"]);
-//     $stmt->bindValue(":checkIn", $events["checkIn"]);
-//     $stmt->bindValue(":checkOut", $events["checkOut"]);
-//     $stmt->bindValue(":banner", $events["banner"]);
+    // Bind values
+    $stmt->bindValue(":id", $user["id"]);
+    $stmt->bindValue(":firstname", $user["firstname"]);
+    $stmt->bindValue(":lastname", $user["lastname"]);
+    $stmt->bindValue(":middlename", $user["middlename"]);
+    $stmt->bindValue(":email", $user["email"]);
+    $stmt->bindValue(":password", $user["password"]);
 
-//     // Execute the prepared statement
-//     return $stmt->execute();
-// }
+    // Execute the prepared statement
+    return $stmt->execute();
+}

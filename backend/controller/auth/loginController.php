@@ -1,6 +1,6 @@
 <?php
 require_once(__DIR__ . "/../../util/header.php");
-require_once(__DIR__ . "/../../model/Event.php");
+require_once(__DIR__ . "/../../model/User.php");
 
 //fetch request method
 $requestMethod = $_SERVER["REQUEST_METHOD"];
