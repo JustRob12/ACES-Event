@@ -5,6 +5,7 @@ require_once(__DIR__ . "/../model/Event.php");
 //fetch request method
 $requestMethod = $_SERVER["REQUEST_METHOD"];
 
+//handle request
 switch ($requestMethod) {
 
     case "GET": {
@@ -27,7 +28,7 @@ switch ($requestMethod) {
 
 }
 
-
+//perform fetch all events
 function fetchEvents()
 {
     //fetch all events from database
@@ -41,6 +42,7 @@ function fetchEvents()
     response(true, ["data" => $events]);
 }
 
+//perform fetch single event
 function fetchEventsById($id){
     $event = findEventById($id);
     if (!$event) {

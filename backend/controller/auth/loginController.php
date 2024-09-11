@@ -20,19 +20,22 @@ switch ($requestMethod) {
 }
 function login()
 {
+    //data from forms
     $email = $_POST["email"];
     $password = $_POST["password"];
-
+    //fetch user email
     $result = findUserByEmail($email);
-
+    //validate if user exists and password matches with the encrypted password
     if (!$result || !password_verify($password, $result["password"])) {
         response(false, ["message" => "Invalid Credentials"]);
         exit;
     }
-
+    //return user information for page access
     $returnData = [
         "userId" => $result["id"],
-        "email" => $result["email"],
+        "firstname" => $result["firstname"],
+        "lastname" => $result["lastname"],
+        "middlename"=> $result["middlename"],
         "role" => $result["role"]
     ];
     response(true, $returnData);
