@@ -1,4 +1,6 @@
 <?php
+use Ulid\Ulid;
+
 require_once(__DIR__ . "/../util/header.php");
 require_once(__DIR__ . "/../model/Event.php");
 
@@ -17,14 +19,24 @@ switch ($requestMethod) {
         }
         break;
     }
-    case "POST": {
-        //perform post requests
+    case "POST" : {
+       
+       if(isset($_POST["method"])){
+        if($_POST["method"] == "PATCH"){
+            editEvent($_GET["id"]);
+        }
+       }
+       else{
+        insertEvent();
+       }
         break;
+
     }default: {
         $responseMessage = "Request method: {$requestMethod} not allowed!";
         response(false, ["message" => $responseMessage]);
         break;
     }
+
 
 }
 
@@ -51,4 +63,64 @@ function fetchEventsById($id){
     }
 
     response(true, $event);
+}
+
+function insertEvent(){
+
+    $id = Ulid::generate(true);
+    $name = $_POST["name"];
+    $description = $_POST["description"];
+    $startDate = $_POST["startDate"];
+    $endDate = $_POST["endDate"];
+    $checkIn = $_POST["checkIn"];
+    $checkOut = $_POST["checkOut"];
+    $banner = $_POST["banner"];
+    $data = ["id" => $id, "name" => $name, "description" => $description, "startDate"=> $startDate, "endDate"=> $endDate,
+    "checkIn" => $checkIn, "checkOut" => $checkOut,  "banner" => $banner];
+
+    $event = createEvent($data);
+
+    if(!$event){
+        response(false,["message" => "Failed to create Event"]);
+        exit;
+    }
+    response(true, ["message" => "Event Created"]);
+        
+}
+
+function editEvent($id){
+
+   
+    $name = $_POST["name"];
+    $description = $_POST["description"];
+    $startDate = $_POST["startDate"];
+    $endDate = $_POST["endDate"];
+    $checkIn = $_POST["checkIn"];
+    $checkOut = $_POST["checkOut"];
+    $banner = $_POST["banner"];
+
+    $data = ["name" => $name, "description" => $description, "startDate"=> $startDate, "endDate"=> $endDate,
+    "checkIn" => $checkIn, "checkOut" => $checkOut,  "banner" => $banner];
+
+    $event = updateEvent($id,  $data);
+
+    if(!$event){
+        response(false,["message" => "Failed to Update Event"]);
+        exit;
+    }
+    response(true, ["message" => "Event Updated"]);
+
+
+}
+
+
+function removeEvent($id){
+
+    $event = deleteEvent($id);
+
+    if(!$event){
+        response(false,["message" => "Failed to Delete Event"]);
+        exit;
+    }
+    response(true, ["message" => "Event Removed"]);
 }
