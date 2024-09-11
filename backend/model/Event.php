@@ -72,17 +72,19 @@ function createEvent(array $events)
     return $stmt->execute();
 }
 
-function updateEvent($id, array $events){
+function updateEvent($id, array $events)
+{
     global $eventTable;
     global $database;
 
-    
-    $query = "UPDATE $eventTable SET name = :name, description= :description, startDate = :startDate, endDate = :endDate, checkIn = :checkIn, checkOut = :checkOut, banner = :banner WHERE id = :id";
 
+    $query = "UPDATE $eventTable 
+                SET name = :name, description= :description, startDate = :startDate, endDate = :endDate, checkIn = :checkIn, checkOut = :checkOut, banner = :banner 
+                WHERE id = :id";
 
     $stmt = $database->connect()->prepare($query);
 
-    $stmt->bindValue(":id", $events["id"]);
+    $stmt->bindValue(":id", $id);
     $stmt->bindValue(":name", $events["name"]);
     $stmt->bindValue(":description", $events["description"]);
     $stmt->bindValue(":startDate", $events["startDate"]);
@@ -93,21 +95,22 @@ function updateEvent($id, array $events){
 
     return $stmt->execute();
 
-   
+
 
 }
 
-function deleteEvent($id){
+function deleteEvent($id)
+{
 
     global $eventTable;
     global $database;
 
 
     $query = "DELETE from $eventTable WHERE id = :id";
-    
+
     $stmt = $database->connect()->prepare($query);
 
-    
+
     $stmt->bindValue(":id", $id);
 
     return $stmt->execute();
