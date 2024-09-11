@@ -18,6 +18,11 @@ switch ($requestMethod) {
     }
     case "POST": {
         //perform post requests
+        break;
+    }default: {
+        $responseMessage = "Request method: {$requestMethod} not allowed!";
+        response(false, ["message" => $responseMessage]);
+        break;
     }
 
 }
@@ -33,7 +38,7 @@ function fetchEvents()
         exit;
     }
     //return all events
-    response(true, $events);
+    response(true, ["data" => $events]);
 }
 
 function fetchEventsById($id){

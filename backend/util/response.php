@@ -13,6 +13,7 @@ function response(bool $success, $data = [], $toCache = false)
 
 	//set reponse data
 	$responseData["success"]  = $success;
+	
 	foreach ($data as $key => $value) {
 		$responseData[$key] = $value;
 	}
