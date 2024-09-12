@@ -88,31 +88,28 @@ function insertAttendance()
     response(true, ["message" => "Attendance record created"]);
 }
 
-// Update an existing attendance record
+
 function editAttendance($id)
 {
-    $event_id = $_POST["event_id"];
-    $student_id = $_POST["student_id"];
-    $createdAt = $_POST["createdAt"];
-    $checkIn = $_POST["checkIn"];
+  
+    if (!isset($_POST["checkOut"])) {
+        response(false, ["message" => "checkOut field is required"]);
+        exit;
+    }
+
     $checkOut = $_POST["checkOut"];
 
-    $data = [
-        "event_id" => $event_id,
-        "student_id" => $student_id,
-        "createdAt" => $createdAt,
-        "checkIn" => $checkIn,
-        "checkOut" => $checkOut
-    ];
-
-    $attendance = updateAttendance($id, $data);
+  
+    $attendance = updateAttendance($id, $checkOut);
 
     if (!$attendance) {
         response(false, ["message" => "Failed to update attendance record"]);
         exit;
     }
+
     response(true, ["message" => "Attendance record updated"]);
 }
+
 
 // Delete an attendance record by ID
 function removeAttendance($id)
