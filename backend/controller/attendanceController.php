@@ -20,7 +20,7 @@ switch ($requestMethod) {
         break;
     }
     case "POST" : {
-        if(isset($_POST["method"]) && $_POST["method"] == "PATCH") {
+        if(isset($_POST["method"]) && $_POST["method"] === "PATCH") {
             editAttendance($_GET["id"]);
         } else {
             insertAttendance();
@@ -122,4 +122,4 @@ function removeAttendance($id)
     }
     response(true, ["message" => "Attendance record removed"]);
 }
-?>
+

@@ -89,4 +89,4 @@ function deleteAttendance($id)
 
     return $stmt->execute();
 }
-?>
+

@@ -22,8 +22,10 @@ switch ($requestMethod) {
     case "POST" : {
        
        if(isset($_POST["method"])){
-        if($_POST["method"] == "PATCH"){
+        if($_POST["method"] === "PATCH"){
             editEvent($_GET["id"]);
+        }else if($_POST["method"] === "DELETE"){
+
         }
        }
        else{
