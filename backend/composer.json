@@ -1,5 +1,6 @@
 {
     "require": {
-        "robinvdvleuten/ulid": "^5.0"
+        "robinvdvleuten/ulid": "^5.0",
+        "cloudinary/cloudinary_php": "^2.14"
     }
 }
